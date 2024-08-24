@@ -113,6 +113,14 @@ if(isset($_GET['submit']) && $_GET['submit'] == 1){
                 VALUES ('$order_id', '$pro_id','$qty','$price','$total')
             ");
         }
+    } else{
+        $_SESSION['sms'] = [
+            'status' => 'error',
+            'background' => 'alert-danger',
+            'data' => __("Empty Order")
+        ];
+        header('Location: ' . route('orders/create.php'));
+        exit();
     }
 
     $_SESSION['orders'] = [];

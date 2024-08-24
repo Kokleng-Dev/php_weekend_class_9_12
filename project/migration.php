@@ -39,6 +39,7 @@ define('ORDERS',"CREATE TABLE IF NOT EXISTS orders(
 
 define('ORDER_DETAILS',"CREATE TABLE IF NOT EXISTS order_details(
     id int not null auto_increment primary key,
+    order_id int,
     product_id int not null,
     qty int not null,
     price float(10,2) not null,

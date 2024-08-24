@@ -15,6 +15,20 @@
         $note = $_POST['note'];
         $product_category_id = $_POST['product_category_id'];
 
+        if(!$name || !$price || !$product_category_id){
+            $_SESSION['sms'] = [
+                'status' => 'error',
+                'background' => 'alert-danger',
+                'data' => __("Required Input Data")
+            ];
+
+
+            $route = route("products");
+
+            header("Location: $route");
+            exit();
+        }
+
         $mysql->query("INSERT INTO products (name,note,price,product_category_id) VALUES ('$name','$note','$price','$product_category_id')");
 
         $_SESSION['sms'] = [
@@ -49,7 +63,7 @@
                     <form action="<?= route('products/create.php'); ?>" method="POST">
                         <div class="mb-3">
                             <label for="product_category_id"><?= __('Category'); ?> <span class="text-danger">*</span></label>
-                            <select name="product_category_id" id="product_category_id" class="form-select">
+                            <select name="product_category_id" id="product_category_id" class="form-select" required>
                                 <option value=""><?= __('Please Select'); ?></option>
                                 <?php while($product_category = $product_categories->fetch_object()){ ?>
                                     <option value="<?= $product_category->id; ?>"><?= $product_category->name; ?></option>
